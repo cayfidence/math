@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kids Math Trainer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Kids Math Trainer</h1>
+    <p class="tagline">Quick drills. Earn phone time.</p>
+  </header>
+
+  <main class="container">
+    <section class="assignments">
+      <h2>Assignments</h2>
+      <div class="cards">
+        <button class="card" id="small99Btn" aria-haspopup="dialog" aria-controls="small99Modal">
+          <span class="card-title">Small 99</span>
+          <span class="card-desc">10 random Questions</span>
+        </button>
+              <button class="card" id="two2Btn" aria-haspopup="dialog" aria-controls="two2Modal">
+          <span class="card-title">2 vs 2</span>
+          <span class="card-desc">10 random 2-digit +/-</span>
+        </button></div>
+    </section>
+  </main>
+
+    <!-- Modal -->
+  <dialog id="small99Modal" class="modal">
+    <form method="dialog" class="modal-surface" id="quizSurface" aria-labelledby="quizTitle">
+      <div class="hud">
+        <div class="hud-left">
+          <span class="label">Time</span>
+          <span id="timer" class="timer" aria-live="polite">12</span>
+        </div>
+        <div class="hud-right">
+          <span class="label">Score</span>
+          <span id="score" class="score" aria-live="polite">0</span>
+        </div>
+      </div>
+
+      <h3 id="quizTitle" class="visually-hidden">Small 99 Quiz</h3>
+
+      <div class="quiz-content">
+        <div id="question" class="question" aria-live="polite">1 x 1 = ?</div>
+        <label class="answer-row">
+          <span class="answer-label">Your answer</span>
+          <input id="answerInput" type="number" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+          <button id="submitBtn" type="submit" class="primary">Submit</button>
+        </label>
+        <div id="progress" class="progress">Question 1 of 10</div>
+      </div>
+
+      <menu class="modal-actions">
+        <button id="restartBtn" type="button" class="secondary" hidden>Try Again</button>
+        <button id="closeBtn" value="close" class="secondary">Close</button>
+      </menu>
+    </form>
+  </dialog>
+  <!-- 2 vs 2 Modal -->
+  <dialog id="two2Modal" class="modal">
+    <form method="dialog" class="modal-surface" id="quizSurface2" aria-labelledby="quizTitle2">
+      <div class="hud">
+        <div class="hud-left">
+          <span class="label">Time</span>
+          <span id="timer2" class="timer" aria-live="polite">30</span>
+        </div>
+        <div class="hud-right">
+          <span class="label">Score</span>
+          <span id="score2" class="score" aria-live="polite">0</span>
+        </div>
+      </div>
+
+      <h3 id="quizTitle2" class="visually-hidden">2 vs 2 Quiz</h3>
+
+      <div class="quiz-content">
+        <div id="question2" class="question" aria-live="polite">12 + 34 = ?</div>
+        <label class="answer-row">
+          <span class="answer-label">Your answer</span>
+          <input id="answerInput2" type="number" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+          <button id="submitBtn2" type="submit" class="primary">Submit</button>
+        </label>
+        <div id="progress2" class="progress">Question 1 of 10</div>
+      </div>
+
+      <menu class="modal-actions">
+        <button id="restartBtn2" type="button" class="secondary" hidden>Try Again</button>
+        <button id="closeBtn2" value="close" class="secondary">Close</button>
+      </menu>
+    </form>
+  </dialog>
+  <footer class="site-footer">
+    <small>Tip: Each correct answer in 12s is +1, wrong/timeout is -1. Final minutes = score x 3.</small>
+    <br/>
+    <small>Tip: In 2 vs 2, each answer has 30s. Minutes = score x 3.</small>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
