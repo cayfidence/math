@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -23,7 +23,11 @@
               <button class="card" id="two2Btn" aria-haspopup="dialog" aria-controls="two2Modal">
           <span class="card-title">2 vs 2</span>
           <span class="card-desc">10 random 2-digit +/-</span>
-        </button></div>
+        </button>
+        <button class="card" id="mixBtn" aria-haspopup="dialog" aria-controls="mixModal">
+          <span class="card-title">Multiplication ±</span>
+          <span class="card-desc">10 random (a×b)±c</span>
+        </button>      </div>
     </section>
   </main>
 
@@ -91,14 +95,48 @@
       </menu>
     </form>
   </dialog>
-  <footer class="site-footer">
+    <!-- Multiplication +/- Modal -->
+  <dialog id="mixModal" class="modal">
+    <form method="dialog" class="modal-surface" id="quizSurface3" aria-labelledby="quizTitle3">
+      <div class="hud">
+        <div class="hud-left">
+          <span class="label">Time</span>
+          <span id="timer3" class="timer" aria-live="polite">45</span>
+        </div>
+        <div class="hud-right">
+          <span class="label">Score</span>
+          <span id="score3" class="score" aria-live="polite">0</span>
+        </div>
+      </div>
+
+      <h3 id="quizTitle3" class="visually-hidden">Multiplication plus/minus Quiz</h3>
+
+      <div class="quiz-content">
+        <div id="question3" class="question" aria-live="polite">8 * 9 - 4 = ?</div>
+        <label class="answer-row">
+          <span class="answer-label">Your answer</span>
+          <input id="answerInput3" type="number" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+          <button id="submitBtn3" type="submit" class="primary">Submit</button>
+        </label>
+        <div id="progress3" class="progress">Question 1 of 10</div>
+      </div>
+
+      <menu class="modal-actions">
+        <button id="restartBtn3" type="button" class="secondary" hidden>Try Again</button>
+        <button id="closeBtn3" value="close" class="secondary">Close</button>
+      </menu>
+    </form>
+  </dialog>  <footer class="site-footer">
     <small>Tip: Each correct answer in 12s is +1, wrong/timeout is -1. Final minutes = score x 3.</small>
     <br/>
     <small>Tip: In 2 vs 2, each answer has 30s. Minutes = score x 3.</small>
+    <br/>
+    <small>Tip: In Multiplication ±, each answer has 45s. Minutes = score x 3.</small>
   </footer>
   <script src="app.js"></script>
 </body>
 </html>
+
 
 
 

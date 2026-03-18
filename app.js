@@ -324,3 +324,162 @@
 
   modal.addEventListener('close', ()=>{ clearInterval(intervalId); });
 })();
+
+// Multiplication +/- quiz (45s, 10 questions, (a*b) ± c)
+(function(){
+  const startSeconds = 45;
+  const totalQuestions = 10;
+
+  const openBtn = document.getElementById("mixBtn");
+  const modal = document.getElementById("mixModal");
+  const closeBtn = document.getElementById("closeBtn3");
+  const restartBtn = document.getElementById("restartBtn3");
+
+  const timerEl = document.getElementById("timer3");
+  const scoreEl = document.getElementById("score3");
+  const qEl = document.getElementById("question3");
+  const progressEl = document.getElementById("progress3");
+  const form = document.getElementById("quizSurface3");
+  const answerInput = document.getElementById("answerInput3");
+  const submitBtn = document.getElementById("submitBtn3");
+
+  let questions = [];
+  let qIndex = 0;
+  let score = 0;
+  let countdown = startSeconds;
+  let intervalId = null;
+  let awaitingAnswer = false;
+
+  function randInt(min, max){ return Math.floor(Math.random()*(max-min+1)) + min; }
+  function oneDigit(){ return randInt(1,9); }
+
+  function makeQuestions(){
+    const qs = [];
+    for(let i=0;i<totalQuestions;i++){
+      const a = oneDigit();
+      const b = oneDigit();
+      const prod = a*b;
+      const plus = Math.random() < 0.5;
+      let c, text, answer;
+      if(plus){
+        c = randInt(1,99); // 1 or 2 digits
+        text = `${a} * ${b} + ${c} = ?`;
+        answer = prod + c;
+      } else {
+        const maxC = Math.min(99, prod); // avoid negatives
+        c = randInt(1, Math.max(1, maxC));
+        text = `${a} * ${b} - ${c} = ?`;
+        answer = prod - c;
+      }
+      qs.push({text, answer});
+    }
+    return qs;
+  }
+
+  function renderQuestion(){
+    const q = questions[qIndex];
+    qEl.textContent = q.text;
+    progressEl.textContent = `Question ${qIndex+1} of ${totalQuestions}`;
+    answerInput.value = "";
+    answerInput.focus();
+  }
+
+  function setScore(delta){
+    score += delta;
+    scoreEl.textContent = String(score);
+    const ok = getComputedStyle(document.documentElement).getPropertyValue("--ok");
+    const bad = getComputedStyle(document.documentElement).getPropertyValue("--bad");
+    scoreEl.style.color = delta>0 ? ok : bad;
+    setTimeout(()=>{ scoreEl.style.color = score>=0 ? ok : bad; }, 350);
+  }
+
+  function startTimer(){
+    clearInterval(intervalId);
+    countdown = startSeconds;
+    timerEl.textContent = String(countdown);
+    awaitingAnswer = true;
+    intervalId = setInterval(()=>{
+      countdown -= 1;
+      timerEl.textContent = String(countdown);
+      if(countdown <= 0){
+        clearInterval(intervalId);
+        if(awaitingAnswer){
+          awaitingAnswer = false;
+          setScore(-1);
+          nextQuestion();
+        }
+      }
+    }, 1000);
+  }
+
+  function nextQuestion(){
+    qIndex += 1;
+    if(qIndex >= totalQuestions){ endQuiz(); return; }
+    renderQuestion();
+    startTimer();
+  }
+
+  function startQuiz(){
+    questions = makeQuestions();
+    qIndex = 0;
+    score = 0;
+    scoreEl.textContent = "0";
+    renderQuestion();
+    restartBtn.hidden = true;
+    submitBtn.disabled = false;
+    startTimer();
+  }
+
+  function endQuiz(){
+    clearInterval(intervalId);
+    awaitingAnswer = false;
+    submitBtn.disabled = true;
+
+    const minutes = Math.max(0, score) * 3;
+    const result = document.createElement("div");
+    result.className = "result";
+    result.innerHTML = `
+      <p><strong>All done!</strong></p>
+      <p>Final score: <strong>${score}</strong></p>
+      <p>Phone time earned: <strong>${minutes} minute${minutes===1?"":"s"}</strong></p>
+    `;
+
+    document.querySelectorAll('#mixModal .result').forEach(n=>n.remove());
+    form.querySelector('.quiz-content')?.insertAdjacentElement('afterend', result);
+
+    restartBtn.hidden = false;
+    restartBtn.focus();
+  }
+
+  form.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    if(!awaitingAnswer) return;
+    const raw = answerInput.value.trim();
+    const guess = Number(raw);
+    const correct = questions[qIndex].answer;
+    clearInterval(intervalId);
+    awaitingAnswer = false;
+    if(!Number.isFinite(guess)){
+      setScore(-1);
+    } else if(guess === correct && countdown >= 0){
+      setScore(+1);
+    } else {
+      setScore(-1);
+    }
+    nextQuestion();
+  });
+
+  openBtn.addEventListener("click", ()=>{
+    if(typeof modal.showModal === 'function'){ modal.showModal(); } else { modal.setAttribute('open',''); }
+    startQuiz();
+  });
+
+  closeBtn.addEventListener("click", ()=>{ clearInterval(intervalId); modal.close(); });
+
+  restartBtn.addEventListener("click", ()=>{
+    document.querySelectorAll('#mixModal .result').forEach(n=>n.remove());
+    startQuiz();
+  });
+
+  modal.addEventListener('close', ()=>{ clearInterval(intervalId); });
+})();
