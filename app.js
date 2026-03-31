@@ -1,5 +1,5 @@
 (function(){
-  const startSeconds = 12;
+  const startSeconds = 45;
   const totalQuestions = 10;
 
   const openBtn = document.getElementById("small99Btn");
@@ -8,6 +8,8 @@
   const restartBtn = document.getElementById("restartBtn");
 
   const timerEl = document.getElementById("timer");
+  const startLabelEl = document.getElementById("timerStart");
+  if(startLabelEl) startLabelEl.textContent = `(Start: ${startSeconds}s)`;
   const scoreEl = document.getElementById("score");
   const qEl = document.getElementById("question");
   const progressEl = document.getElementById("progress");
@@ -183,6 +185,8 @@
   const restartBtn = document.getElementById("restartBtn2");
 
   const timerEl = document.getElementById("timer2");
+  const startLabelEl2 = document.getElementById("timer2Start");
+  if(startLabelEl2) startLabelEl2.textContent = `(Start: ${startSeconds}s)`;
   const scoreEl = document.getElementById("score2");
   const qEl = document.getElementById("question2");
   const progressEl = document.getElementById("progress2");
@@ -329,9 +333,9 @@
   modal.addEventListener('close', ()=>{ clearInterval(intervalId); });
 })();
 
-// Multiplication +/- quiz (45s, 10 questions, (a*b) +/- c, c up to 3 digits)
+// Multiplication +/- quiz (60s, 10 questions, (a*b) +/- c, c up to 3 digits)
 (function(){
-  const startSeconds = 45;
+  const startSeconds = 60;
   const totalQuestions = 10;
 
   const openBtn = document.getElementById("mixBtn");
@@ -340,6 +344,8 @@
   const restartBtn = document.getElementById("restartBtn3");
 
   const timerEl = document.getElementById("timer3");
+  const startLabelEl3 = document.getElementById("timer3Start");
+  if(startLabelEl3) startLabelEl3.textContent = `(Start: ${startSeconds}s)`;
   const scoreEl = document.getElementById("score3");
   const qEl = document.getElementById("question3");
   const progressEl = document.getElementById("progress3");
@@ -501,9 +507,9 @@
 
 
 
-// Division-only quiz (30s, 10 questions, integer results)
+// Division-only quiz (60s, 10 questions, integer results)
 (function(){
-  const startSeconds = 30;
+  const startSeconds = 60;
   const totalQuestions = 10;
 
   const openBtn = document.getElementById("divBtn");
@@ -512,6 +518,8 @@
   const restartBtn = document.getElementById("restartBtn4");
 
   const timerEl = document.getElementById("timer4");
+  const startLabelEl4 = document.getElementById("timer4Start");
+  if(startLabelEl4) startLabelEl4.textContent = `(Start: ${startSeconds}s)`;
   const scoreEl = document.getElementById("score4");
   const qEl = document.getElementById("question4");
   const progressEl = document.getElementById("progress4");

@@ -33,26 +33,39 @@
           <span class="card-desc">10 random integer divisions</span>
         </button>      </div>
     </section>
-    <!-- Division Modal -->
-  <dialog id="divModal" class="quiz-modal" aria-labelledby="quizTitle4">
-    <form id="quizSurface4" method="dialog">
-      <div class="quiz-header">
-        <h3 id="quizTitle4" class="visually-hidden">Division Quiz</h3>
-        <div class="stats">
-          <span>Time: <strong id="timer4">30</strong>s</span>
-          <span>Score: <strong id="score4">0</strong></span>
-          <span id="progress4">Question 1 of 10</span>
+      <!-- Division Modal -->
+  <dialog id="divModal" class="modal" aria-labelledby="quizTitle4">
+    <form id="quizSurface4" method="dialog" class="modal-surface">
+      <div class="hud">
+        <div class="hud-left">
+          <div class="timer-block">
+            <span class="label">Time</span>
+            <span class="timer" aria-live="polite"><strong id="timer4">60</strong>s</span>
+            <span id="timer4Start" class="start-seconds" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="hud-right">
+          <span class="label">Score</span>
+          <span id="score4" class="score" aria-live="polite">0</span>
         </div>
       </div>
+
+      <h3 id="quizTitle4" class="visually-hidden">Division Quiz</h3>
+
       <div class="quiz-content">
         <div id="question4" class="question">12 / 3 = ?</div>
-        <input id="answerInput4" class="answer" type="number" inputmode="numeric" autocomplete="off" />
-        <div class="actions">
+        <label class="answer-row">
+          <span class="answer-label">Your answer</span>
+          <input id="answerInput4" class="answer" type="number" inputmode="numeric" autocomplete="off" />
           <button id="submitBtn4" class="primary" type="submit">Submit</button>
-          <button id="restartBtn4" type="button" hidden>Restart</button>
-          <button id="closeBtn4" type="button">Close</button>
-        </div>
+        </label>
+        <div id="progress4" class="progress">Question 1 of 10</div>
       </div>
+
+      <menu class="modal-actions">
+        <button id="restartBtn4" type="button" class="secondary" hidden>Try Again</button>
+        <button id="closeBtn4" type="button" class="secondary">Close</button>
+      </menu>
     </form>
   </dialog>
 
@@ -61,10 +74,7 @@
   <dialog id="small99Modal" class="modal">
     <form method="dialog" class="modal-surface" id="quizSurface" aria-labelledby="quizTitle">
       <div class="hud">
-        <div class="hud-left">
-          <span class="label">Time</span>
-          <span id="timer" class="timer" aria-live="polite">12</span>
-        </div>
+        <div class="hud-left"><div class="timer-block"><span class="label">Time</span><span id="timer" class="timer" aria-live="polite">45</span><span id="timerStart" class="start-seconds" aria-hidden="true"></span></div></div>
         <div class="hud-right">
           <span class="label">Score</span>
           <span id="score" class="score" aria-live="polite">0</span>
@@ -93,10 +103,7 @@
   <dialog id="two2Modal" class="modal">
     <form method="dialog" class="modal-surface" id="quizSurface2" aria-labelledby="quizTitle2">
       <div class="hud">
-        <div class="hud-left">
-          <span class="label">Time</span>
-          <span id="timer2" class="timer" aria-live="polite">30</span>
-        </div>
+        <div class="hud-left"><div class="timer-block"><span class="label">Time</span><span id="timer2" class="timer" aria-live="polite">30</span><span id="timer2Start" class="start-seconds" aria-hidden="true"></span></div></div>
         <div class="hud-right">
           <span class="label">Score</span>
           <span id="score2" class="score" aria-live="polite">0</span>
@@ -125,10 +132,7 @@
   <dialog id="mixModal" class="modal">
     <form method="dialog" class="modal-surface" id="quizSurface3" aria-labelledby="quizTitle3">
       <div class="hud">
-        <div class="hud-left">
-          <span class="label">Time</span>
-          <span id="timer3" class="timer" aria-live="polite">45</span>
-        </div>
+        <div class="hud-left"><div class="timer-block"><span class="label">Time</span><span id="timer3" class="timer" aria-live="polite">60</span><span id="timer3Start" class="start-seconds" aria-hidden="true"></span></div></div>
         <div class="hud-right">
           <span class="label">Score</span>
           <span id="score3" class="score" aria-live="polite">0</span>
@@ -153,11 +157,11 @@
       </menu>
     </form>
   </dialog>  <footer class="site-footer">
-    <small>Tip: Each correct answer in 12s is +1, wrong/timeout is -1. Final minutes = score x 3.</small>
+    <small>Tip: Each correct answer in 45s is +1, wrong/timeout is -1. Final minutes = score x 3.</small>
     <br/>
     <small>Tip: In 2 vs 2, each answer has 30s. Minutes = score x 3.</small>
     <br/>
-    <small>Tip: In Multiplication/Division +/-, each answer has 45s. Minutes = score x 3.</small>
+    <small>Tip: In Multiplication/Division +/-, each answer has 60s. Minutes = score x 3.</small>
   </footer>
   <script src="app.js"></script>
 </body>

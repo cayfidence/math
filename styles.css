@@ -47,3 +47,16 @@
 .modal-surface #answerInput{background:#ffffff;color:#0b1020;border:1px solid #c0b050}
 .modal-surface .secondary{color:#0b1020;border-color:#c0b050;background:transparent}
 .modal-surface .progress{color:#4b4b4b}
+
+
+.hud-left
+.timer-block{display:inline-flex;flex-direction:row;align-items:center;gap:6px}
+.hud-left .timer-block{display:inline-flex;flex-direction:row;align-items:center;gap:6px}
+.timer-block::before{
+  content:"";
+  width:12px;height:12px;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23000' d='M12 1a1 1 0 0 1 1 1v1.05A9 9 0 1 1 6.34 4.34l.74.74A7.5 7.5 0 1 0 12 4.5V3a1 1 0 0 1 1-1h-2a1 1 0 0 1 1-1Zm1 6a1 1 0 0 0-2 0v5a1 1 0 0 0 .293.707l3 3a1 1 0 1 0 1.414-1.414L13 11.586V7Z'/></svg>") no-repeat center/contain;
+  mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23000' d='M12 1a1 1 0 0 1 1 1v1.05A9 9 0 1 1 6.34 4.34l.74.74A7.5 7.5 0 1 0 12 4.5V3a1 1 0 0 1 1-1h-2a1 1 0 0 1 1-1Zm1 6a1 1 0 0 0-2 0v5a1 1 0 0 0 .293.707l3 3a1 1 0 1 0 1.414-1.414L13 11.586V7Z'/></svg>") no-repeat center/contain;
+  margin-right:6px;
+}
+ .start-seconds{margin:0;display:inline-flex;gap:6px;align-items:center;color:var(--muted);font-size:0.85em;
