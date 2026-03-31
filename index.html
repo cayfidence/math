@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -22,14 +22,40 @@
         </button>
               <button class="card" id="two2Btn" aria-haspopup="dialog" aria-controls="two2Modal">
           <span class="card-title">2 vs 2</span>
-          <span class="card-desc">10 random 2-digit +/-</span>
+          <span class="card-desc">10 random up to 3-digit +/-</span>
         </button>
         <button class="card" id="mixBtn" aria-haspopup="dialog" aria-controls="mixModal">
-          <span class="card-title">Multiplication ±</span>
-          <span class="card-desc">10 random (a×b)±c</span>
+          <span class="card-title">Multiplication/Division +/-</span>
+          <span class="card-desc">10 random (a*b)+/-c</span>
+        </button>
+        <button class="card" id="divBtn" aria-haspopup="dialog" aria-controls="divModal">
+          <span class="card-title">Division</span>
+          <span class="card-desc">10 random integer divisions</span>
         </button>      </div>
     </section>
-  </main>
+    <!-- Division Modal -->
+  <dialog id="divModal" class="quiz-modal" aria-labelledby="quizTitle4">
+    <form id="quizSurface4" method="dialog">
+      <div class="quiz-header">
+        <h3 id="quizTitle4" class="visually-hidden">Division Quiz</h3>
+        <div class="stats">
+          <span>Time: <strong id="timer4">30</strong>s</span>
+          <span>Score: <strong id="score4">0</strong></span>
+          <span id="progress4">Question 1 of 10</span>
+        </div>
+      </div>
+      <div class="quiz-content">
+        <div id="question4" class="question">12 / 3 = ?</div>
+        <input id="answerInput4" class="answer" type="number" inputmode="numeric" autocomplete="off" />
+        <div class="actions">
+          <button id="submitBtn4" class="primary" type="submit">Submit</button>
+          <button id="restartBtn4" type="button" hidden>Restart</button>
+          <button id="closeBtn4" type="button">Close</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
 
     <!-- Modal -->
   <dialog id="small99Modal" class="modal">
@@ -109,7 +135,7 @@
         </div>
       </div>
 
-      <h3 id="quizTitle3" class="visually-hidden">Multiplication plus/minus Quiz</h3>
+      <h3 id="quizTitle3" class="visually-hidden">Multiplication/Division plus/minus Quiz</h3>
 
       <div class="quiz-content">
         <div id="question3" class="question" aria-live="polite">8 * 9 - 4 = ?</div>
@@ -131,11 +157,15 @@
     <br/>
     <small>Tip: In 2 vs 2, each answer has 30s. Minutes = score x 3.</small>
     <br/>
-    <small>Tip: In Multiplication ±, each answer has 45s. Minutes = score x 3.</small>
+    <small>Tip: In Multiplication/Division +/-, each answer has 45s. Minutes = score x 3.</small>
   </footer>
   <script src="app.js"></script>
 </body>
 </html>
+
+
+
+
 
 
 
