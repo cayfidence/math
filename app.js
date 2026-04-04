@@ -1,4 +1,4 @@
-(function(){
+﻿(function(){
   const startSeconds = 45;
   const totalQuestions = 10;
 
@@ -28,12 +28,12 @@
   function rand1to9(){ return Math.floor(Math.random()*9)+1; }
 
   function makeQuestions(){
-    // Create 10 random multiplication problems mixing 1-digit×1-digit and some 2-digit×1-digit
+    // Create 10 random multiplication problems mixing 1-digit脳1-digit and some 2-digit脳1-digit
     function randInt(min, max){ return Math.floor(Math.random()*(max-min+1)) + min; }
     function twoDigit(){ return randInt(10,99); }
     const qs = [];
     for(let i=0;i<totalQuestions;i++){
-      const useTwoByOne = Math.random() < 0.4; // ~40% 2-digit × 1-digit
+      const useTwoByOne = Math.random() < 0.4; // ~40% 2-digit 脳 1-digit
       const a = useTwoByOne ? twoDigit() : rand1to9();
       const b = rand1to9();
       qs.push({a,b,answer:a*b});
@@ -69,7 +69,7 @@
       timerEl.textContent = String(countdown);
       if(countdown <= 0){
         clearInterval(intervalId);
-        // Timeout counts as incorrect �?-1
+        // Timeout counts as incorrect 鈫?-1
         if(awaitingAnswer){
           awaitingAnswer = false;
           setScore(-1);
@@ -105,7 +105,7 @@
     awaitingAnswer = false;
     submitBtn.disabled = true;
 
-    const minutes = Math.max(0, score) * 3; // negative score �?0 minutes
+    const minutes = Math.max(0, score) * 3; // negative score 鈫?0 minutes
     const result = document.createElement("div");
     result.className = "result";
     result.innerHTML = `
@@ -509,7 +509,7 @@
 
 // Division-only quiz (60s, 10 questions, integer results)
 (function(){
-  const startSeconds = 60;
+  // Division-only quiz (no timer). 10 questions, integer answers.
   const totalQuestions = 10;
 
   const openBtn = document.getElementById("divBtn");
@@ -517,9 +517,6 @@
   const closeBtn = document.getElementById("closeBtn4");
   const restartBtn = document.getElementById("restartBtn4");
 
-  const timerEl = document.getElementById("timer4");
-  const startLabelEl4 = document.getElementById("timer4Start");
-  if(startLabelEl4) startLabelEl4.textContent = `(Start: ${startSeconds}s)`;
   const scoreEl = document.getElementById("score4");
   const qEl = document.getElementById("question4");
   const progressEl = document.getElementById("progress4");
@@ -530,8 +527,6 @@
   let questions = [];
   let qIndex = 0;
   let score = 0;
-  let countdown = startSeconds;
-  let intervalId = null;
   let awaitingAnswer = false;
 
   function randInt(min, max){ return Math.floor(Math.random()*(max-min+1)) + min; }
@@ -539,10 +534,21 @@
   function makeQuestions(){
     const qs = [];
     for(let i=0;i<totalQuestions;i++){
-      // Choose divisor d in 2..9, quotient q in 2..199 �� dividend n=d*q (up to 3 digits).
-      const d = randInt(2,9);
-      const q = randInt(2,199);
-      const n = d * q;
+      let d, q, n;
+      if(Math.random() < 0.5){
+        // 1-digit divisor 2..9, quotient up to 199 → dividend up to 3 digits
+        d = randInt(2,9);
+        q = randInt(2,199);
+      } else {
+        // 2-digit divisor 10..99, keep dividend ≤ 999; ensure maxQ ≥ 2
+        let maxQ = 0;
+        do {
+          d = randInt(10,99);
+          maxQ = Math.floor(999 / d);
+        } while(maxQ < 2);
+        q = randInt(2, maxQ);
+      }
+      n = d * q;
       qs.push({ text: `${n} / ${d} = ?`, answer: q });
     }
     return qs;
@@ -565,30 +571,11 @@
     setTimeout(()=>{ scoreEl.style.color = score>=0 ? ok : bad; }, 350);
   }
 
-  function startTimer(){
-    clearInterval(intervalId);
-    countdown = startSeconds;
-    timerEl.textContent = String(countdown);
-    awaitingAnswer = true;
-    intervalId = setInterval(()=>{
-      countdown -= 1;
-      timerEl.textContent = String(countdown);
-      if(countdown <= 0){
-        clearInterval(intervalId);
-        if(awaitingAnswer){
-          awaitingAnswer = false;
-          setScore(-1);
-          nextQuestion();
-        }
-      }
-    }, 1000);
-  }
-
   function nextQuestion(){
     qIndex += 1;
     if(qIndex >= totalQuestions){ endQuiz(); return; }
     renderQuestion();
-    startTimer();
+    awaitingAnswer = true; // no timer; allow unlimited thinking time
   }
 
   function startQuiz(){
@@ -599,11 +586,10 @@
     renderQuestion();
     restartBtn.hidden = true;
     submitBtn.disabled = false;
-    startTimer();
+    awaitingAnswer = true; // ready for first answer
   }
 
   function endQuiz(){
-    clearInterval(intervalId);
     awaitingAnswer = false;
     submitBtn.disabled = true;
 
@@ -629,11 +615,10 @@
     const raw = answerInput.value.trim();
     const guess = Number(raw);
     const correct = questions[qIndex].answer;
-    clearInterval(intervalId);
     awaitingAnswer = false;
     if(!Number.isFinite(guess)){
       setScore(-1);
-    } else if(guess === correct && countdown >= 0){
+    } else if(guess === correct){
       setScore(+1);
     } else {
       setScore(-1);
@@ -646,14 +631,15 @@
     startQuiz();
   });
 
-  closeBtn.addEventListener("click", ()=>{ clearInterval(intervalId); modal.close(); });
+  closeBtn.addEventListener("click", ()=>{ modal.close(); });
 
   restartBtn.addEventListener("click", ()=>{
     document.querySelectorAll('#divModal .result').forEach(n=>n.remove());
     startQuiz();
   });
 
-  modal.addEventListener('close', ()=>{ clearInterval(intervalId); });
 })();
+
+
 
 
